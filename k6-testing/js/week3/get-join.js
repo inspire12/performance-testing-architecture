@@ -2,8 +2,8 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 import { Trend, Rate } from 'k6/metrics';
 
-const getTrend = new Trend('Get Books');
-const getErrorRate = new Rate('Get_Books_error');
+const getTrend = new Trend('Get_Orders_Join');
+const getErrorRate = new Rate('Get_Orders_Join_error');
 
 export let options = {
   stages: [
@@ -14,7 +14,7 @@ export let options = {
 };
 
 export default function () {
-  const url = `http://nginx:4000/spring-${__ENV.TYPE}/`
+  const url = `http://nginx:4000/spring-order/`
 
   const params = {
     headers: {
@@ -23,15 +23,15 @@ export default function () {
   };
 
   const requests = {
-      'Get_books': {
+      'Get_Orders_Join': {
         method: 'GET',
-        url: url +'books/simple',
+        url: url +'api/orders/1',
         params: params,
       }
     };
 
   const responses = http.batch(requests);
-  const getResp = responses['Get_books'];
+  const getResp = responses['Get_Orders_Join'];
 
   check(getResp, {
     'status is 200': (r) => r.status === 200,
