@@ -2,7 +2,7 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 import { Trend, Rate } from 'k6/metrics';
 
-const getTrend = new Trend('Get Books');
+const getTrend = new Trend('Get_Books');
 const getErrorRate = new Rate('Get_Books_error');
 
 export let options = {
